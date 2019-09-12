@@ -31,24 +31,49 @@ elem = driver.find_element(
 
 
 elem = driver.find_element(By.XPATH, '//*[@id="wpbody-content"]/div[3]/ul/li[2]/a').click()
-links = driver.find_elements_by_class_name('row-title')
+# links = driver.execute_script('row-title')
 
-# for i in range(len(links)):
+# links = driver.execute_script('''
+#     let list = window.document.querySelector("#the-list")
+#     var listoflinks = window.document.querySelectorAll("#the-list a.row-title")
+#     var links = []
+#     Array.prototype.forEach.call(listoflinks, function(el){ 
+#         links.push(el.href)
+#     } )
+    
+# ''')
 
-links[i].click()
+# print(links)
 
-select = Select(driver.find_element_by_name('pagegoals'))
-select.select_by_value('goal4')
+link = driver.find_elements_by_class_name('row-title')
+links = []
+for elem in link:
+    links.append(elem.get_attribute("href"))
 
-select = Select(driver.find_element_by_name('pagetype'))
-select.select_by_value('marketing')
+# print(links)
 
-driver.find_element_by_id("publish")
+for i in links:
 
-driver.execute_script("window.history.go(-1)")
+    # links = driver.find_elements_by_class_name('row-title')
+    
+    driver.get(f'{i}')
+    # driver.find_element_by_tag_name('body').send_keys(Keys.COMMAND + 't')
+    # driver.close()
 
-driver.implicitly_wait(1000)
+    select = Select(driver.find_element_by_name('pagegoals'))
+    select.select_by_value('goal4')
 
+    select = Select(driver.find_element_by_name('pagetype'))
+    select.select_by_value('marketing')
+
+    driver.execute_script('window.document.querySelector("#publish").click()')
+
+    driver.implicitly_wait(15)
+
+
+
+
+# driver.execute_script("window.history.go(-1)")
 
 
 # driver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + 'w')
