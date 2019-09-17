@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver import ActionChains
 
 # Custom made class for the initial site
-class Driver():
+class GetUrl():
     driver = webdriver.Chrome("../drivers/chromedriver")
     def __init__(self, site_url, links_archive_css=None, links_from_heading=None):
         self.site_url = site_url
@@ -37,7 +37,7 @@ site_url = "http://wlgpatfl2.firmsitepreview.com/blog/archives.shtml"
 links_archive_css = "/html/body/div[2]/div[2]/div[1]/div/article/div/ul[2]/li/a"
 links_from_heading = "/html/body/div[2]/div[2]/div[1]/div/article/article/header/h2/a"
 
-s = Driver(site_url, links_archive_css, links_from_heading)
+s = GetUrl(site_url, links_archive_css, links_from_heading)
 s.get_the_url()
 links = s.get_all_links_from_archive()
 # print(links)
