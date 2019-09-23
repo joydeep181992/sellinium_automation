@@ -5,7 +5,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver import ActionChains
 
 # from selenium.webdriver.support import expected_conditions as EC
-
+with open('wp_links.txt', 'r') as r:
+    data = r.readlines()
+    l = []
+    for i in range(1, len(data)):
+        l.append(data[i].strip())
 
 driver = webdriver.Chrome("../drivers/chromedriver")
 driver.get(
@@ -45,30 +49,34 @@ elem = driver.find_element(By.XPATH, '//*[@id="wpbody-content"]/div[3]/ul/li[2]/
 
 # print(links)
 
-link = driver.find_elements_by_class_name('row-title')
-links = []
-for elem in link:
-    links.append(elem.get_attribute("href"))
+
+# link = driver.find_elements_by_class_name('row-title')
+# links = []
+# for elem in link:
+#     links.append(elem.get_attribute("href"))
 
 # print(links)
 
-for i in links:
 
-    # links = driver.find_elements_by_class_name('row-title')
-    
-    driver.get(f'{i}')
-    # driver.find_element_by_tag_name('body').send_keys(Keys.COMMAND + 't')
-    # driver.close()
 
-    select = Select(driver.find_element_by_name('pagegoals'))
-    select.select_by_value('goal4')
+# links = driver.find_elements_by_class_name('row-title')
 
-    select = Select(driver.find_element_by_name('pagetype'))
-    select.select_by_value('marketing')
+driver.get(f'{l[0]}')
+# driver.find_element_by_tag_name('body').send_keys(Keys.COMMAND + 't')
+# driver.close()
+driver.find_element(By.XPATH, '//*[@id="aiosp_tabbed"]/button/span[2]').click()
+driver.execute_script(f"document.querySelector('#aiosp .aioseop_count_chars').value = 'joydeep'")
+# driver.find_element(By.XPATH, '//*[@id="aiosp_title_wrapper"]/div/span[2]/div/input[1]').set_attribute('value','')
 
-    driver.execute_script('window.document.querySelector("#publish").click()')
+# select = Select(driver.find_element_by_name('pagegoals'))
+# select.select_by_value('goal4')
 
-    driver.implicitly_wait(15)
+# select = Select(driver.find_element_by_name('pagetype'))
+# select.select_by_value('marketing')
+
+driver.execute_script('window.document.querySelector("#publish").click()')
+
+# driver.implicitly_wait(15)
 
 
 
